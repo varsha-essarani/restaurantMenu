@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roasted Chicken Order</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+      background: linear-gradient(to bottom, purple, pink)
+    }
+
+    h1 {
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .slider {
+      width: 800px;
+      height: 300px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider-track {
+      display: flex;
+      width: calc(800px * 6);
+      animation: scroll 12s linear infinite;
+    }
+
+    .slide {
+      width: 800px;
+      height: 300px;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    @keyframes scroll {
+      0%, 16%   { transform: translateX(0); }
+      20%, 36%  { transform: translateX(-500px); }
+      40%, 56%  { transform: translateX(-1000px); }
+      60%, 76%  { transform: translateX(-1500px); }
+      80%, 96%  { transform: translateX(-2000px); }
+      100%      { transform: translateX(0); }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    .media-section {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .media-section img {
+      width: 400px;
+      border-radius: 10px;
+    }
+
+    video {
+      width: 500px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    #discountInfo {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Get The Delicious Roasted Chicken Right At Your Door</h1>
+
+  <div class="slider">
+    <div class="slider-track">
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenRoast (1).jpg" alt="Roasted Chicken"></div>
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenPlate (1).jpg" alt="Chicken Plate"></div>
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenRoast (1).jpg" alt="Roasted Chicken"></div>
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenPlate (1).jpg" alt="Chicken Plate"></div>
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenRoast (1).jpg" alt="Roasted Chicken"></div>
+      <div class="slide"><img src="C:\Users\varsh\Downloads\chickenPlate (1).jpg" alt="Chicken Plate"></div>
+    </div>
+  </div>
+
+  <div class="media-section">
+    <img src="C:\Users\varsh\Downloads\Money_Quest (1).jpg" alt="Money Quest">
+    <video controls>
+      <source src="C:\Users\varsh\Downloads\mickeyMouse (2).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="container">
+    <form id="orderForm">
+      <label for="name">Enter your Name:</label><br>
+      <input type="text" id="name" name="name"><br><br>
+
+      <label>Choose the taste:</label><br>
+      <input type="checkbox" name="taste" value="halal"> Halal<br>
+      <input type="checkbox" name="taste" value="spicy"> Spicy<br>
+      <input type="checkbox" name="taste" value="with_salad"> With Salad<br><br>
+
+      <label>Choose the size:</label><br>
+      <input type="radio" name="size" value="whole"> Whole<br>
+      <input type="radio" name="size" value="half"> Half<br>
+      <input type="radio" name="size" value="quarter"> Quarter<br><br>
+
+      <label for="delivery">Choose the mode of delivery:</label><br>
+      <select id="delivery" name="delivery">
+        <option value="">--Select--</option>
+        <option value="same_day">Same day (after 3 hours)</option>
+        <option value="next_day">Next day afternoon</option>
+        <option value="next_week">Same day next week</option>
+      </select><br><br>
+
+      <label for="orderTotal">Enter total order amount (£):</label><br>
+      <input type="number" id="orderTotal" name="orderTotal" min="0"><br><br>
+
+      <p id="discountInfo"></p>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <br>
+    <button onclick="window.open('https://www.youtube.com', '_blank')">Go to YouTube</button>
+  </div>
+
+  <script>
+    const form = document.getElementById("orderForm");
+    const discountInfo = document.getElementById("discountInfo");
+
+    form.addEventListener("input", checkEligibility);
+
+function checkEligibility() {
+  const name = document.getElementById("name").value.trim();
+  const tastes = document.querySelectorAll('input[name="taste"]:checked');
+  const size = document.querySelector('input[name="size"]:checked');
+  const delivery = document.getElementById("delivery").value;
+  const total = parseFloat(document.getElementById("orderTotal").value);
+
+  if (
+    name &&
+    tastes.length > 0 &&
+    size &&
+    delivery &&
+    !isNaN(total) &&
+    total > 100
+  ) {
+    const discount = total * 0.15;
+    const finalAmount = total - discount;
+    discountInfo.textContent = `You're eligible for a 15% discount! You save £${discount.toFixed(2)}. Final amount: £${finalAmount.toFixed(2)}.`;
+  } else {
+    discountInfo.textContent = "";
+  }
+}
+  </script>
+
+</body>
+</html>
